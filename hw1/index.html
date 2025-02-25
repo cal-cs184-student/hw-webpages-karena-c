@@ -51,12 +51,47 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		I first create a bounding box based on the location of the 3 points of the triangle, determining the smallest and largest x and y values to look within. I then truncate using floor() and ceil() to ensure that we can standardize the pixel we start at. Therefore, this algorithm is the same as one that checks each sample within the bounding box of the triangle. 
+		<p>I first create a bounding box based on the location of the 3 points of the triangle, determining the smallest and largest x and y values to look within. I then truncate using floor() and ceil() to ensure that we can standardize the pixel we start at. Therefore, this algorithm is the same as one that checks each sample within the bounding box of the triangle. </p>
 
-Next, I check the winding order to determine if the points are given in counter clockwise or clockwise order (Discussion 2 Q2.4), and swap the order if needed to convert. 
+		<p>Next, I check the winding order to determine if the points are given in counter clockwise or clockwise order (Discussion 2 Q2.4), and swap the order if needed to convert.</p>   
+		<p>Finally, I loop through each pixel in the bounding box and check whether the center of the pixel is inside a triangle using a helper function L(px, py, x0, y0, x1, y1) (Lecture 2 slides). If for all 3 edges the pixel is within the defined plane, it has to be inside of the triangle, and we fill the pixel in with the appropriate colour.</p>
+		<img src="q1.png" width="400px"/>
+		<figcaption>Rasterized Triangle.</figcaption>
 
-Finally, I loop through each pixel in the bounding box and check whether the center of the pixel is inside a triangle using a helper function L(px, py, x0, y0, x1, y1) (Lecture 2 slides). If for all 3 edges the pixel is within the defined plane, it has to be inside of the triangle, and we fill the pixel in with the appropriate colour.  
+		<h2>Task 2: Antialiasing by Supersampling</h2>
+		<p>In rasterize_triangle, I sample at sqrt(sample_rate) * sqrt(sample_rate) to get the divisible grid to break down each pixel into. After checking whether each subsample is inside the triangle, I put it into the sample buffer.</p> 
 
+		<p>In resolve_to_framebuffer, I update the function to average out all samples within the sample buffer for each overall pixel’s RGB value and put it into the framebuffer.</p>  
+
+		<p>I also update and resize fill_pixel, set_sample_rate, and set_framebuffer_target to support the new buffer size with sample_rate.</p> 
+
+		<p>Supersampling is useful because it removes jaggies and makes the image smoother overall. We can see this in the following images, where increased sample rate makes the edges of the triangle appear blurrier through a gradual transition between the inside and outside of the triangle.</p> 
+
+		<p>This happens because with greater subdivisions, we can be more accurate about which parts of the pixel are contained in the rasterized triangle. As such, the colour for the pixel is averaged out, making it blend in with the outside edge of the triangle and smoothens out the overall look.</p>
+
+		<img src="q2_1.png" width="400px"/>
+		<figcaption>Sample Rate = 1 / pixel</figcaption>
+
+		<img src="q2_4.png" width="400px"/>
+		<figcaption>Sample Rate = 4 / pixel</figcaption>
+
+		<img src="q2_16.png" width="400px"/>
+		<figcaption>Sample Rate = 16 / pixel</figcaption>
+
+		<h2>Task 3: Transforms</h2>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+		<h2>Task 4: Barycentric coordinates</h2>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -84,24 +119,6 @@ Finally, I loop through each pixel in the bounding box and check whether the cen
 			</table>
 		</div>
 		
-		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
 		<h2>Additional Notes (please remove)</h2>
 		<ul>
 			<li>You can also add code if you'd like as so: <code>code code code</code></li>
