@@ -53,8 +53,8 @@
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
 		<p>I first create a bounding box based on the location of the 3 points of the triangle, determining the smallest and largest x and y values to look within. I then truncate using floor() and ceil() to ensure that we can standardize the pixel we start at. Therefore, this algorithm is the same as one that checks each sample within the bounding box of the triangle. </p>
 
-		<p>Next, I check the winding order to determine if the points are given in counter clockwise or clockwise order (Discussion 2 Q2.4), and swap the order if needed to convert.</p>   
-		<p>Finally, I loop through each pixel in the bounding box and check whether the center of the pixel is inside a triangle using a helper function L(px, py, x0, y0, x1, y1) (Lecture 2 slides). If for all 3 edges the pixel is within the defined plane, it has to be inside of the triangle, and we fill the pixel in with the appropriate colour.</p>
+		<p>Next, I check the winding order to determine if the points are given in counter clockwise or clockwise order, and swap the order if needed to convert.</p>   
+		<p>Finally, I loop through each pixel in the bounding box and check whether the center of the pixel is inside a triangle using a helper function L(px, py, x0, y0, x1, y1). If for all 3 edges the pixel is within the defined plane, it has to be inside of the triangle, and we fill the pixel in with the appropriate colour.</p>
 		<img src="q1.png" width="400px"/>
 		<figcaption>Rasterized Triangle.</figcaption>
 
@@ -69,13 +69,13 @@
 
 		<p>This happens because with greater subdivisions, we can be more accurate about which parts of the pixel are contained in the rasterized triangle. As such, the colour for the pixel is averaged out, making it blend in with the outside edge of the triangle and smoothens out the overall look.</p>
 
-		<img src="q2_1.png" width="400px"/>
+		<img src="q2_1px.png" width="400px"/>
 		<figcaption>Sample Rate = 1 / pixel</figcaption>
 
-		<img src="q2_4.png" width="400px"/>
+		<img src="q2_4px.png" width="400px"/>
 		<figcaption>Sample Rate = 4 / pixel</figcaption>
 
-		<img src="q2_16.png" width="400px"/>
+		<img src="q2_16px.png" width="400px"/>
 		<figcaption>Sample Rate = 16 / pixel</figcaption>
 
 		<h2>Task 3: Transforms</h2>
