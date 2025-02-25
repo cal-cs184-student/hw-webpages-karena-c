@@ -1,134 +1,149 @@
 <html>
-	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-		<style>
-			h1 {
-				text-align: center;
-			}
+<head>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		h1 {
+			text-align: center;
+		}
 
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
+		.container {
+			margin: 0 auto;
+			padding: 60px 20%;
+		}
 
-			figure {
-				text-align: center;
-			}
+		figure {
+			text-align: center;
+		}
 
-			img {
-				display: inline-block;
-			}
+		img {
+			display: inline-block;
+		}
 
-			body {
-				font-family: 'Inter', sans-serif;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
+		body {
+			font-family: 'Inter', sans-serif;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
 		<div style="text-align: center;">Names: </div>
 
 		<br>
 
 		Link to webpage: <a href="https://cal-cs184-student.github.io/hw-webpages-karena-c/hw1/index.html">https://cal-cs184-student.github.io/hw-webpages-karena-c/hw1/index.html</a>
-		
+
 		<br>
 
 		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/sp25-hw1-karena">https://github.com/cal-cs184-student/sp25-hw1-karena</a>
 
 		<figure>
-			<img src="lion.jpg" alt="Lion" style="width:50%"/>
+			<img src="lion.jpg" alt="Lion" style="width:50%" />
 			<figcaption>You can add images with captions!</figcaption>
 		</figure>
 
 		<!--
-		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
+	We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+	-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		<p>In this homework, we created a simple rasterizer with features like drawing triangles, supersampling, transforms, and texture mapping. This was a really fun project that detailed how images are rendered and visualized on a screen. Before taking this class, I had thought of pixels as individual blocks of colour that made up a screen. It was so interesting to look into how they related to each other to develop a whole image and the math that turns colours into full images that our minds can visualize. </p>
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
 		<p>I first create a bounding box based on the location of the 3 points of the triangle, determining the smallest and largest x and y values to look within. I then truncate using floor() and ceil() to ensure that we can standardize the pixel we start at. Therefore, this algorithm is the same as one that checks each sample within the bounding box of the triangle. </p>
 
-		<p>Next, I check the winding order to determine if the points are given in counter clockwise or clockwise order, and swap the order if needed to convert.</p>   
+		<p>Next, I check the winding order to determine if the points are given in counter clockwise or clockwise order, and swap the order if needed to convert.</p>
 		<p>Finally, I loop through each pixel in the bounding box and check whether the center of the pixel is inside a triangle using a helper function L(px, py, x0, y0, x1, y1). If for all 3 edges the pixel is within the defined plane, it has to be inside of the triangle, and we fill the pixel in with the appropriate colour.</p>
-		<img src="q1.png" width="400px"/>
-		<figcaption>Rasterized Triangle.</figcaption>
+		<img src="q1.png" width="400px" />
+		<figcaption>Rasterized Triangle (basic/test4.svg).</figcaption>
 
 		<h2>Task 2: Antialiasing by Supersampling</h2>
-		<p>In rasterize_triangle, I sample at sqrt(sample_rate) * sqrt(sample_rate) to get the divisible grid to break down each pixel into. After checking whether each subsample is inside the triangle, I put it into the sample buffer.</p> 
+		<p>In rasterize_triangle, I sample at sqrt(sample_rate) * sqrt(sample_rate) to get the divisible grid to break down each pixel into. After checking whether each subsample is inside the triangle, I put it into the sample buffer.</p>
 
-		<p>In resolve_to_framebuffer, I update the function to average out all samples within the sample buffer for each overall pixel’s RGB value and put it into the framebuffer.</p>  
+		<p>In resolve_to_framebuffer, I update the function to average out all samples within the sample buffer for each overall pixel’s RGB value and put it into the framebuffer.</p>
 
-		<p>I also update and resize fill_pixel, set_sample_rate, and set_framebuffer_target to support the new buffer size with sample_rate.</p> 
+		<p>I also update and resize fill_pixel, set_sample_rate, and set_framebuffer_target to support the new buffer size with sample_rate.</p>
 
-		<p>Supersampling is useful because it removes jaggies and makes the image smoother overall. We can see this in the following images, where increased sample rate makes the edges of the triangle appear blurrier through a gradual transition between the inside and outside of the triangle.</p> 
+		<p>Supersampling is useful because it removes jaggies and makes the image smoother overall. We can see this in the following images, where increased sample rate makes the edges of the triangle appear blurrier through a gradual transition between the inside and outside of the triangle.</p>
 
 		<p>This happens because with greater subdivisions, we can be more accurate about which parts of the pixel are contained in the rasterized triangle. As such, the colour for the pixel is averaged out, making it blend in with the outside edge of the triangle and smoothens out the overall look.</p>
 
-		<img src="q2_1px.png" width="400px"/>
+		<img src="q2_1px.png" width="400px" />
 		<figcaption>Sample Rate = 1 / pixel</figcaption>
 
-		<img src="q2_4px.png" width="400px"/>
+		<img src="q2_4px.png" width="400px" />
 		<figcaption>Sample Rate = 4 / pixel</figcaption>
 
-		<img src="q2_16px.png" width="400px"/>
+		<img src="q2_16px.png" width="400px" />
 		<figcaption>Sample Rate = 16 / pixel</figcaption>
 
 		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		I made the robot lift up its arms using the transform rotation function. 🙆
+
+		<img src="q3.png" width="400px" />
 
 		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Barycentric coordinates blend colours within a triangle by using the areas of triangles formed by a point inside the triangle and the triangle's edges, helping us to blend out the colours better. It works by setting up weights for the colours depending on distance from the vertices.
+
+		<img src="q4.png" width="400px" />
+		<figcaption>Circle</figcaption>
+
+		<img src="q4_triangle.png" width="400px" />
+		<figcaption>Triangle</figcaption>
+
 
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>Pixel sampling is when we find the best colour a pixel should be based on the corresponding location on the given texture. In the nearest sampling method, we determine what colour the pixel should be by choosing the texel closest to the pixel coordinates. In bilinear sampling, we choose the color by averaging out the nearest texels. To implement this, I returned the nearest texels that correlate with the given pixel for nearest sampling, and weighted the texels next to the given pixel for bilinear sampling.</p>
+
+		<img src="q5_1n.png" width="400px" />
+		<figcaption>Sample Rate = 1 / pixel, Nearest Sampling</figcaption>
+
+		<img src="q5_16n.png" width="400px" />
+		<figcaption>Sample Rate = 16 / pixel, Nearest Sampling</figcaption>
+
+		<img src="q5_1b.png" width="400px" />
+		<figcaption>Sample Rate = 1 / pixel, Bilinear Sampling</figcaption>
+
+		<img src="q5_16b.png" width="400px" />
+		<figcaption>Sample Rate = 1 / pixel, Bilinear Sampling</figcaption>
+
+		<p>Nearest sampling results in blockier pixels, where the transitioning colour gradients between various colours are not as smooth as the bilinear. This is improved as the sample rate increases between both the bilinear sampling and the nearest pixel sampling, but across the board bilinear sampling forms smoother gradients with minimal jaggies. The most dramatic difference would be seen when textures do not have a strong edge (gradual transition/blend) or when there are minimal pixels available to sample from.</p>
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>Level sampling helps determine which mipmap to project the texture on if the image and texture are not of the same size. In other words, it projects the given image onto the described texture. To achieve this, I calculated the level it should be at and sampled using the methods defined in Part 5.</p>
+		
+		<p>At L_ZERO, I assume that the level will be 0. At L_NEAREST, I find the nearest appropriate mipmap level, and at L_LINEAR I weight the level and the one above it. </p>
 
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>Level sampling balances performance and aliasing reduction, as higher mipmap levels reduce aliasing but may cause blurriness. Increasing the samples per pixel makes antialiasing better but it is at the cost of higher memory usage and slower performance due to the additional computations required per pixel.</p>
 
+		
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="q6_zn.png" width="400px" />
+						<figcaption>L_ZERO, P_NEAREST</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="q6_zl.png" width="400px" />
+						<figcaption>L_ZERO, P_LINEAR</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="q6_nn.png" width="400px" />
+						<figcaption>L_NEAREST, P_NEAREST</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="q6_nl.png" width="400px" />
+						<figcaption>L_NEAREST, P_LINEAR</figcaption>
+					</td>
+				</tr>
 			</table>
 		</div>
-		
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
-		</div>
-	</body>
+
+	</div>
+</body>
 </html>
