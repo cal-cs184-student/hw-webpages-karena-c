@@ -116,7 +116,7 @@
 			<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
 			De Casteljau’s algorithm extends to Bezier surfaces by evaluating the algorithm twice in two directions. For a grid of control points and a pair of parameters (u, v), we first evaluate point u on each row of control points with the de Casteljau’s algorithm. This gives us a set of intermediate points. Then, we evaluate point v on the “moving” curve with the intermediate points in the other direction. This results in a single point on the Bezier surface.
 			<br><br>
-			To implement this, we updated <code>evaluateStep</code> to take in a 3D vector and created a recursive function <code>evaluate1D</code> to run evaluateStep to obtain the final point. Next, we used this function to gain a vector of final points evaluated by each row, and finally ran evaluate1D on this vector to evaluate by column, determining the surface of a nxn grid.
+			To implement this, we updated <code>evaluateStep</code> to take in a 3D vector and created a recursive function <code>evaluate1D</code> to run evaluateStep to obtain the final point. Next, we used this function to gain a vector of final points evaluated by each row, and finally ran <code>evaluate1D()</code> on this vector to evaluate by column, determining the surface of a nxn grid.
 			<br><br>
 			
 			<figure>
@@ -128,7 +128,7 @@
 
 			<h3>Part 3: Area-weighted vertex normals</h3>
 			To implement area-weighted vertex normals, we iterated through all the faces incident to a vertex using the half-edge data structure. After getting the vertices for each face by using a series of calls to <code>twin()</code>, <code>vertex()</code>, and <code>next()</code>, we computed the normal by taking the cross product of two edge vectors. The magnitude of this cross product was used to determine the triangle’s area, which was then used as a weight for the normal. We then first normalize the face normal and then multiply by the area before adding this to a sum outside our while loop. This gets us our final area-weighted vertex normal. This method ensures smooth shading by approximating the surface curvature using weighted contributions from surrounding faces.
-
+			<br><br>
 			<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
 					<tr>
@@ -236,7 +236,7 @@
 
 				</table>
 			</div>
-
+			<br><br>
 			Sharp corners and edges flatten out more than the flat surfaces, causing the shape to become increasingly asymmetric. We noticed that a lot of the asymmetry formed where the cube’s sides would form a harsh spike that over several upsampling iterations would result in an asymmetric cube. To resolve this, we split the half edge on every single face to ensure that when the mesh splits in upsampling, it would do so evenly across each face.
 			<br><br>
 
