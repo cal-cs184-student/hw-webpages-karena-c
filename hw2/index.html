@@ -58,7 +58,7 @@
 			De Casteljau’s algorithm is a recursive method used to evaluate Bézier curves. Given a set of control points, the algorithm linearly interpolates between them to compute intermediate points. After each step, the algorithm gradually refines the curve until a single point remains. This point lies on the Bézier curve for a given parameter t.
 			<br>
 			<br>
-			To implement this algorithm, we created a recursive function by using the <code>lerp(p_i, p_i+1, t) = (1-t)p_i + t*p_i+1</code> to perform one recursive step in <code>evaluateStep</code> that finds the intermediate control point between p_i and p_i+1 weighted by the float t.
+			To implement this algorithm, we created a recursive function by using the function <code>lerp(p_i, p_i+1, t) = (1-t)p_i + t*p_i+1</code> to perform one recursive step in <code>evaluateStep</code> that finds the intermediate control point between p_i and p_i+1 weighted by the float t.
 			<br><br>
 
 			<div style="display: flex; flex-direction: column; align-items: center;">
