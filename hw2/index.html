@@ -47,7 +47,10 @@
 	-->
 
 			<h2>Overview</h2>
-			Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+			In this homework, we created implementation for de Casteljau’s algorithm to evaluate both Bezier curves as well as Bezier surfaces. We also created support for triangle meshes using the Half-Edge data structure by writing functions to implement flipping, splitting, and upsampling features. 
+			<br>
+			Having used Bezier curves to create designs on applications like Adobe and Figma, it was fascinating to see how the curves were actually generated. Triangle meshes are also essential to computer graphics and defining visualizations, which made it so rewarding to develop and observe the creation of various shapes through the meshes.
+			<br>
 
 			<h2>Section I: Bezier Curves and Surfaces</h2>
 
@@ -56,7 +59,7 @@
 			<br>
 			<br>
 			To implement this algorithm, we created a recursive function by using the <code>lerp(p_i, p_i+1, t) = (1-t)p_i + t*p_i+1</code> to perform one recursive step in <code>evaluateStep</code> that finds the intermediate control point between p_i and p_i+1 weighted by the float t.
-
+			<br>
 
 			<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
@@ -114,7 +117,8 @@
 			De Casteljau’s algorithm extends to Bezier surfaces by evaluating the algorithm twice in two directions. For a grid of control points and a pair of parameters (u, v), we first evaluate point u on each row of control points with the de Casteljau’s algorithm. This gives us a set of intermediate points. Then, we evaluate point v on the “moving” curve with the intermediate points in the other direction. This results in a single point on the Bezier surface.
 			<br><br>
 			To implement this, we updated <code>evaluateStep</code> to take in a 3D vector and created a recursive function <code>evaluate1D</code> to run evaluateStep to obtain the final point. Next, we used this function to gain a vector of final points evaluated by each row, and finally ran evaluate1D on this vector to evaluate by column, determining the surface of a nxn grid.
-
+			<br>
+			
 			<figure>
 				<img src="images/q2.jpg" alt="Teapot" style="width:50%" />
 				<!-- <figcaption></figcaption> -->
@@ -143,7 +147,8 @@
 
 			<h3>Part 4: Edge flip</h3>
 			To implement the edge flip operation, we first took note of any variables that would be changed due to the operation. This included vertices, faces, half-edges, and edges. We also took note of each half-edge’s twin. We then used <code>setNeighbors()</code> to reassign each half-edge a new vertex, twin, next, edge, and face according to the flip. We then reassigned the half-edges of each face and vertex to their new corresponding half-edge. We did not run into a very interesting debugging experience. Our first time running our code for this operation, there was an edge missing after the flip. Turns out we forgot to reassign the correct twin for an edge.
-
+			<br>
+			
 			<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
 					<tr>
@@ -166,6 +171,7 @@
 			<br>
 			<br>
 			There were a lot of variables to keep track of, and it quickly became very confusing at times. When implementing upsampling, we had to come back and retrace our steps several times to catch small errors in our code.
+			<br>
 			<figure>
 				<img src="images/part5-diagram.png" alt="Teapot" style="width:50%" />
 				<figcaption>Diagram to better visualize our variable assignments for our edge split.</figcaption>
@@ -196,16 +202,17 @@
 			<h3>Part 6: Loop subdivision for mesh upsampling</h3>
 			We followed the recommended steps given to us in the spec to implement loop subdivision.
 			<br><br>
-			<b>Step 1:</b> We looped through all the vertices using the for loop given to us in the primer, and iterated through the half edges until we return to the original half edge to get the updated position of an old vertex. To determine the updated position, we used the formula \((1 - n * u) * original_position + u * original_neighbor_position_sum\).
+			<b>Step 1:</b> We looped through all the vertices using the for loop given to us in the primer, and iterated through the half edges until we return to the original half edge to get the updated position of an old vertex. To determine the updated position, we used the formula <code>(1 - n * u) * original_position + u * original_neighbor_position_sum</code>.
 			<br><br>
-			<b>Step 2:</b> We iterated through all of the edges, finding the position of all 4 vertices and finding the new position using the formula \(3/8 * (A + B) + 1/8 * (C + D)\).
+			<b>Step 2:</b> We iterated through all of the edges, finding the position of all 4 vertices and finding the new position using the formula <code>3/8 * (A + B) + 1/8 * (C + D)</code>.
 			<br><br>
 			<b>Step 3:</b> We ran into a lot of infinite looping for this step. To resolve this, we created another vector to store all the original edges before splitting, and iterated through that vector to avoid difficulties with determining which edge was original when modifying edges with split edge. Going through the list of original edges, we called splitEdge() on the edge and updated the position and isNew flag.
 			<br><br>
 			<b>Step 4:</b> We iterated through all the edges, checked if it was new and whether only 1 of the vertices was new. If so, we called flipEdge().
 			<br><br>
 			<b>Step 5:</b> Finally, we updated the position using newPosition.
-
+			<br>
+			
 			<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
 					<tr>
