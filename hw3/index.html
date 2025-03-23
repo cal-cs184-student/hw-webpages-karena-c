@@ -33,7 +33,7 @@
 		<br>
 
 		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/sp25-hw3-matcha_latte/tree/master">https://github.com/cal-cs184-student/sp25-hw3-matcha_latte</a>
 		
 		<figure>
 			<img src="cornell.png" alt="Cornell Boxes with Bunnies" style="width:70%"/>
@@ -48,37 +48,44 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Part 1: Ray Generation and Scene Intersection</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+		<p><b>Ray Generation:</b> We first define the camera space as the bottom left corner located at (-tan(hFov/2), -tan(vFov/2), -1), the top right corner located at (tan(hFov/2), tan(vFov/2), -1), and the center of the sensor at (0, 0, 1) using the formulas given by the spec. As the given image coordinates (x, y) are normalized, we can determine what the point on the sensor corresponds to the image coordinates and find a ray based on the camera position pos. Then, we transform the ray from camera space to world space using the c2w matrix and update min_t and max_t with nclip and fclip respectively.</p>
+		<p><b>Pixel Sample Generation:</b> To generate pixel samples, we iterate over the number of samples given to us by ns_aa. For each iteration, we generate a random ray using the camera->generate_ray function and estimate scene radiance for that ray using est_radiance_global_illumination, averaging out the value over all the samples and updating the buffer.</p>
+
+		<p><b>Ray-Triangle Intersection:</b> We used the Möller Trumbore algorithm described in lecture to determine whether there is an intersection between the ray and the triangle. It mathematically calculates the variables t, b1, and b2 to solve for any intersections between the ray and triangle. If t, b1, and b2 satisfy all the conditions, they represent a valid-ray triangle intersection, and we update the new max_t and intersection.</p>
+
+		<p><b>Ray-Sphere Intersection:</b> Similar to the ray-triangle, we use the formula described in lecture to solve for all instances of intersections at t, and use the one that is closest and still valid between min_t and max_t. We update max_t and the intersection accordingly.</p>
+		<div></div>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="images/CBempty.png" width="400px"/>
+				  <figcaption>CBempty.png</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="images/CBspheres.png" width="400px"/>
+				  <figcaption>CBSpheres.png</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="images/CBgems.png" width="400px"/>
+				  <figcaption>CBgems.png</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="CBbunny.png" width="400px"/>
+				  <figcaption>CBbunny.png</figcaption>
 				</td>
 			  </tr>
 			</table>
 		</div>
 		
 		<h2>Part 2: Bounding Volume Hierarchy</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>We first computed a bounding box for all the current primitives, then we created a BVHNode with this bounding box. If the number of primitives is small enough (<= max_leaf_size), we made this node a leaf node by setting start and end and making the left and right children null pointers. If we aren’t creating a leaf node, we split the primitives by first calculating the centroid bounding box, and determining the axis with the largest extent. We then calculated the midpoint along this axis and partitioned primitives into two groups based on whether their centroid is less than this midpoint. If everything ends up on one side, we fallback to the simple median split. We then recursively construct the left and right child nodes. </p>
+		<p>When comparing rendering times with and without BVH acceleration, we noticed a very significant performance difference. Without BVH, each ray is tested for an intersection between every primitive. By using BVH, we significantly decrease the number of tests and therefore significantly improve the runtime. For some scenes like the maxplanck.png, the runtime was improved from a few minutes to under a second. For cow.dae, we improved our render time from around 5 seconds to 0.03 seconds. In scenes before implementing acceleration, the average number of intersections per ray was also significantly higher than with BVH. We went from around 1500 intersections per ray on some renders to an average of 0 intersections per ray. </p>
 
+		<div></div>
 		<h2>Part 3: Direct Illumination</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
