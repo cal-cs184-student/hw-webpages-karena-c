@@ -179,7 +179,7 @@
 			
 		<h2>Part 4: Global Illumination</h2>
 		<p><b>DiffuseBSDF::sample_f:</b> Using the function sampler.get_sample(), we set wi and pdf and return the evaluation of the BSDF using DiffuseBSDF::f().</p>
-		<p><b>At_least_one_bounce_radiance():</b> We recurse through at_least_one_bounce_radiance() on the resulting ray generated from the bsdf. Through each recursive step, if isAccumBounces is true, we add the reflected bounce to the overall total amount of light contributed using the Monte Carlo estimator. If isAccumBounces is false, we return the total light contributed on the final bounce.</p>
+		<p><b>At_least_one_bounce_radiance():</b> We recurse through at_least_one_bounce_radiance() on the resulting ray generated from the bsdf until it reaches the maximum depth. Through each recursive step, if isAccumBounces is true, we add the reflected bounce to the overall total amount of light contributed using the Monte Carlo estimator. If isAccumBounces is false, we return the total light contributed on the final bounce.</p>
 
 		<p>Here are some example images rendered with global (both direct and indirect) illumination at 1024 samples per pixel.</p>
 		<div></div>
