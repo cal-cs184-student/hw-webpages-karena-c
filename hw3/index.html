@@ -80,6 +80,32 @@
 		<p>When comparing rendering times with and without BVH acceleration, we noticed a very significant performance difference. Without BVH, each ray is tested for an intersection between every primitive. By using BVH, we significantly decrease the number of tests and therefore significantly improve the runtime. For some scenes like the maxplanck.png, the runtime was improved from a few minutes to under a second. For cow.dae, we improved our render time from around 5 seconds to 0.03 seconds. In scenes before implementing acceleration, the average number of intersections per ray was also significantly higher than with BVH. We went from around 1500 intersections per ray on some renders to an average of 0 intersections per ray. </p>
 
 		<div></div>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="images/cow.png" width="400px"/>
+				  <figcaption>cow.png</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="images/teapot.png" width="400px"/>
+				  <figcaption>teapot.png</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="images/CBlucy.png" width="400px"/>
+				  <figcaption>CBlucy.png</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="images/maxplanck.png" width="400px"/>
+				  <figcaption>maxplanck.png</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+			
+		<div></div>
 		<h2>Part 3: Direct Illumination</h2>
 		<p><b>DiffuseBSDF::f:</b> Since light is being reflected equally in all directions on the hemisphere, we return reflectance/pi.</p>
 		<p><b>Zero-bounce Illumination:</b> We returned the emission of the object that was intersected using the function bsdf->get_emission().</p>
