@@ -28,39 +28,63 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Final Project Proposal</h1>
-    Summary: We aim to create an animated 3D dancer using a min-version of spatial keyframing. Through direct user manipulation and the usage of key poses, we can recreate character motion without the difficulties of real time standard input devices.
-    <br>
-    Team Members: Cynthia Chen, Karena Chen, Julia Dashzeveg, Steffi Lin
+    		<b>Title:</b> Animated Dancing
+		<b>Summary:</b> We aim to create an animated 3D dancer using a min-version of spatial keyframing. Through direct user manipulation and the usage of key poses, we can recreate character motion without the difficulties of real time standard input devices.
+    		<br>
+   		<b>Team Members:</b> Cynthia Chen, Karena Chen, Julia Dashzeveg, Steffi Lin
 
 		<br>
 
-		Link to webpage: <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to webpage: <a href="https://cal-cs184-student.github.io/hw-webpages-karena-c/final/index.html">https://cal-cs184-student.github.io/hw-webpages-karena-c/final/index.html</a>
 
 		<br>
-		<h2>Part 2: Simulation via numerical integration</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h2>Problem Description</h2>
+		Animation is traditionally difficult, requiring complex motion-capture setups or extensive manual temporal keyframing. This can be time-consuming as well as resource-exhausting, requiring a lot of technical expertise. We want to dive deeper into looking at ways to simplify the animation process through the usage of spatial keyframing, where we can manipulate a character within the 3D environment itself. 
 
-		<h2>Part 3: Handling collisions with other objects</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 4: Handling self-collisions</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 5: Shaders</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Part 6: Extra Credit - Additional cloth simulation features!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		
-		<h2>Additional Notes (please remove)</h2>
+		<h2>Goals and Deliverables</h2>
+		<b>What We Plan to Deliver: </b>
+		<br>
+		We aim to deliver a working demonstration of a 3D animated dancer, where we manipulate the character’s body through the space via interpolation between spatial key poses. This would look like a short (~5 second) animation sequence demonstrating a dance routine built with our system. We will measure the quality of the animation with a qualitative assessment of how natural or expressive the dance looks.
+		<br>
+		<b>What We Hope to Deliver: </b>
+		We hope to recreate a section of choreography from The Ohio State Jazz Finals 2025 (linked in resources), highlighting a variety of key poses our dancer would be set into. If  we manage to finish ahead of schedule, we would also hope to add a basic interface where the user can manipulate the character’s body to implement their own choreography or create a slightly longer animation to include more of the choreography. 
+		<br>
+		<h2>Schedule</h2>
 		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
+			<li><b>4/4:</b> Project Proposal Due</li>
+  			<li><b>4/6-4/12:</b>
 				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
+				<li>Research spatial keyframing techniques and review the resources listed below for a deeper understanding of the task ahead</li>
+				<li>Set up development environment on VS Code/ VS Studio</li>
 				</ul>
 			</li>
+			<li><b>4/13-4/19:</b>
+				<ul>
+				<li>Build basic 3D character</li>
+				<li>Identify key poses for the dancer, start animating a basic version of the dance sequence using initial keyframes</li>
+				</ul>
+			</li>
+			<li><b>4/20:</b> Graded Milestone Due</li>
+			<li><b>4/20-4/26:</b>
+				<ul>
+				<li>Create interpolation between key poses</li>
+				<li>Create prototype of dance sequences</li>
+				</ul>
+			</li>
+			<li><b>4/27-5/3:</b>
+				<ul>
+				<li>Polish output visually and finalize deliverables</li>
+				</ul>
+			</li>
+  			<li><b>5/4:</b> Final Deliverable Due</li>
+			<li><b>5/5:</b> Final Presentation Due</li>
+		</ul>
+		<br>
+		<h2>Resources</h2>
+		<ul>
+			<li><a href="https://www-ui.is.s.u-tokyo.ac.jp/~takeo/papers/squirrel.pdf">Spatial Keyframing for Performance-driven Animation</a></li>
+			<li>VS Code, VS Studio, Blender, Unity</li>
+			<li><a href="https://youtu.be/83Ican6q7CQ?si=iMgS4f_uAvuwWF7A&t=50">2025 Ohio State Jazz Performance (specifically 0:50-0:55)</a></li>
 		</ul>
 		</div>
 	</body>
