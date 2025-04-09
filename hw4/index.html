@@ -48,10 +48,13 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		In this project, we explored how to create cloth model simulation using a mass and spring based system. Building the cloth model using a grid of masses and springs, we looked at how to simulate motion via numerical integration, collisions between the cloth and a sphere and plane, collisions between the cloth and itself, and developing a variety of shaders to add texture and material to the cloth model. 
+
+		We approached this by following the formulas given in the spec and discussed in lecture slides, working part by part to develop each section and build from the bottom up. This was a fascinating project to work on, as it reminded me a lot of a recent TikTok trend showcasing cloth falling on different objects with an increasing number of planes. It was really fun to be able to recreate this trend by looking at how the cloth could be simulated simply through vectors. 
+
 
 		<h2>Part 1: Masses and springs</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -350,12 +353,40 @@
 					<figcaption>Bump Mapping -o 128 -a 128</figcaption>
 				  </td>
 				<td style="text-align: center;">
-				<img src="img/q5_displacement_16.jpg" width="400px"/>
-				<figcaption></figcaption>
+				<img src="img/q5_displacement_128.jpg" width="400px"/>
+				<figcaption>Displacement Mapping -o 128 -a 128</figcaption>
 				</td>
 			  </tr>
 			</table>
 		</div>
+
+		As o and a both increase, the clarity of the impact of the texture on the image becomes more obvious for displacement mapping. There is not as much of an impact for o and a on bump mapping, however. 
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="img/q5_mirror_sphere.jpg" width="400px"/>
+				  <figcaption>Mirror shader on sphere</figcaption>
+				</td>
+				<td style="text-align: center;">
+					<img src="img/q5_mirror.jpg" width="400px"/>
+					<figcaption>Mirror shader on cloth</figcaption>
+				  </td>
+			  </tr>
+			  <!-- <tr>
+				<td style="text-align: center;">
+					<img src="img/q5_bump_128.jpg" width="400px"/>
+					<figcaption>Bump Mapping -o 128 -a 128</figcaption>
+				  </td>
+				<td style="text-align: center;">
+				<img src="img/q5_displacement_128.jpg" width="400px"/>
+				<figcaption>Displacement Mapping -o 128 -a 128</figcaption>
+				</td>
+			  </tr> -->
+			</table>
+		</div>
+
 		<h2>(Optional) Part 6: Extra Credit - Additional cloth simulation features!</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		
