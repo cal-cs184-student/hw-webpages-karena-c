@@ -1,1 +1,80 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: left;
+			}
 
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<h1>CS184/284A Spring 2025 Final Project Milestone</h1>
+    		<b>Title:</b> Animated Dancing
+		<br>
+	    	<b>Team Members:</b> Cynthia Chen, Karena Chen, Julia Dashzeveg, Steffi Lin
+		<br>
+		<b>Link to webpage:</b> <a href="https://cal-cs184-student.github.io/hw-webpages-karena-c/milestone/index.html">https://cal-cs184-student.github.io/hw-webpages-karena-c/milestone/index.html</a>
+		<br>
+		<div></div>
+		<img src="osu_dance.gif">
+		<br> <div></div>
+		<h2>What You Have Accomplished</h2>
+		We looked into the tutorials and resources given in our feedback on our proposal. There were several that we found incredibly helpful for identifying how to get started. We followed the tutorial given in Implementing Keyframe Animation (https://veeenu.github.io/blog/implementing-keyframe-animation/) by Andrea Venuta to learn how to achieve the implementation of keyframe animations. We also looked into the blog post Everything You Need to Know About FBX Files- A Comprehensive Guide by Vection Technologies (https://vection-technologies.com/blog/Everything-You-Need-to-Know-About-FBX-Files-A-Comprehensive-Guide/) to understand what FBX files are and how we could use them in our project. 
+    <div></div>
+    Next, we looked into the papers shared with us to understand and develop implementation strategies. 4D Humans by Shubham Goel, Georgios Pavlakos, Jathushan Rajasegaran, Angjoo Kanazawa, and Jitendra Malik (https://shubham-goel.github.io/4dhumans/) had a very interesting approach that  complemented our project a lot as it explored how to track and reconstruct humans in videos. We thought it would be really interesting to understand how they did this to track the dancers in our video clip that we wanted to track, so we delved deeper into understanding their code linked in their GitHub at https://github.com/shubham-goel/4D-Humans. 
+    <div></div>
+		<h2>Preliminary Results</h2>
+		We are currently debugging our attempt at running the 4D code on our video to see if that would work using Google CoLab and completing the tutorial given to us in Implementing Keyframe Animation by Andrea Venuta to learn more about how to achieve keyframe animation. 
+    <div></div>
+    <br>
+    <h2>Progress Reflection</h2>
+    We found the feedback given to us on our proposal incredibly helpful as a way to orient ourselves. From the proposal the steps recommended were:
+    <ol>
+      <li>Creating the keyframes / simulation with a simple mesh/character</li>
+      <li>Adding in the character with features and clothing</li>
+      <li>Completing the render</li>
+    </ol>
+    <br>
+    Starting first on developing the keyframes / simulation, we found the linked papers in our proposal feedback to be incredibly helpful. This led us to change the way we were planning on implementing our animation strategy. At first, we thought about creating individual dancer models from scratch in Blendr and developing poses to mimic the dance strategy. However, this was pretty difficult given that we weren’t the most familiar with a lot of the technologies and platforms needed and would have taken a lot of time and effort to build the building blocks, much less the animation we wanted to achieve. 
+    <br> <div></div>
+    Instead, we are now reframing our approach by looking into building off of existing code to see if we can improve on it. A lot of the code used in the papers shared were incredibly helpful, and we want to explore how we can combine these technologies to help us achieve our goals.
+    <br><div></div>
+		<h2>Schedule</h2>
+		<ul>
+			<li><b>4/20-4/26:</b>
+				<ul>
+				<li>Finish animating our dancers by tracking the humans in the video</li>
+				<li>Create prototype of dance sequences</li>
+				</ul>
+			</li>
+			<li><b>4/27-5/3:</b>
+				<ul>
+				<li>Finalize deliverables</li>
+				</ul>
+			</li>
+  			<li><b>5/4:</b> Final Deliverable Due</li>
+			<li><b>5/5:</b> Final Presentation Due</li>
+		</ul>
+		<br>
+		</div>
+	</body>
+</html>
